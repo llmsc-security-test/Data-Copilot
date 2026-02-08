@@ -1,0 +1,8 @@
+Unable to find image 'data-copilot:latest' locally
+docker: Error response from daemon: pull access denied for data-copilot, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+
+Run 'docker run --help' for more information
+Data-Copilot started successfully!
+Access the application at: http://localhost:11440
+To stop the container: docker stop data-copilot
+To view logs: docker logs -f data-copilot
