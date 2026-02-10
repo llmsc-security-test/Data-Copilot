@@ -7,7 +7,7 @@ WORKDIR /app
 # Install system dependencies for matplotlib fonts
 RUN apt-get update && apt-get install -y --no-install-recommends \
     fontconfig \
-    ttf-dejavu \
+    fonts-dejavu \
     fonts-wqy-microhei \
     fonts-wqy-zenhei \
     && rm -rf /var/lib/apt/lists/*
