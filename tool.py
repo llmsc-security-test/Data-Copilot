@@ -27,7 +27,17 @@ font_prop = fm.FontProperties(fname=font_path)
 
 
 tushare_token = os.getenv('TUSHARE_TOKEN')
-pro = ts.pro_api(tushare_token)
+if tushare_token:
+    pro = ts.pro_api(tushare_token)
+else:
+    # Create a dummy pro object that raises helpful error on use
+    class DummyPro:
+        def __getattr__(self, name):
+            raise RuntimeError(
+                "Tushare Pro API is not configured. Please set the TUSHARE_TOKEN environment variable. "
+                "Get your free token at https://tushare.pro"
+            )
+    pro = DummyPro()
 
 # def last_month_end(date_str:str=''):
 #     date_obj = datetime.strptime(date_str, '%Y%m%d')

@@ -90,8 +90,8 @@ with gr.Blocks() as demo:
 
 
     if not OPENAI_KEY:
-        with gr.Row().style():
-            with gr.Column(scale=0.9):
+        with gr.Row():
+            with gr.Column(scale=1):
                 gr.Markdown(
                     """
                     You can use gpt35 from openai or from openai-azure.
@@ -101,7 +101,7 @@ with gr.Blocks() as demo:
                     placeholder="Set your OpenAI API key here and press Submit  (e.g. sk-xxx)",
                     lines=1,
                     type="password"
-                ).style(container=False)
+                )
 
                 with gr.Row():
                     openai_api_key_azure = gr.Textbox(
@@ -109,19 +109,19 @@ with gr.Blocks() as demo:
                         placeholder="Set your Azure-OpenAI key",
                         lines=1,
                         type="password"
-                    ).style(container=False)
+                    )
                     openai_api_base_azure = gr.Textbox(
                         show_label=False,
                         placeholder="Azure-OpenAI api_base (e.g. https://zwq0525.openai.azure.com)",
                         lines=1,
                         type="password"
-                    ).style(container=False)
+                    )
                     openai_api_engine_azure = gr.Textbox(
                         show_label=False,
                         placeholder="Azure-OpenAI engine here (e.g. gpt35)",
                         lines=1,
                         type="password"
-                    ).style(container=False)
+                    )
 
 
                 gr.Markdown(
@@ -130,16 +130,16 @@ with gr.Blocks() as demo:
                     """)
 
 
-            with gr.Column(scale=0.1, min_width=0):
-                btn1 = gr.Button("OK").style(height= '100px')
+            with gr.Column(scale=1, min_width=0):
+                btn1 = gr.Button("OK")
 
     with gr.Row():
-        with gr.Column(scale=0.9):
-            input_text = gr.inputs.Textbox(lines=1, placeholder='Please input your problem...', label='what do you want to find？')
+        with gr.Column(scale=1):
+            input_text = gr.Textbox(lines=1, placeholder='Please input your problem...', label='what do you want to find？')
 
-        with gr.Column(scale=0.1, min_width=0):
-            start_btn = gr.Button("Start").style(full_height=True)
-            # end_btn = gr.Button("Stop").style(full_height=True)
+        with gr.Column(scale=1, min_width=0):
+            start_btn = gr.Button("Start")
+            # end_btn = gr.Button("Stop")
 
 
     gr.Markdown(
@@ -180,14 +180,14 @@ with gr.Blocks() as demo:
 
 
     with gr.Row():
-        with gr.Column(scale=0.3, min_width="500px", max_width="500px", min_height="500px", max_height="500px"):
+        with gr.Column(scale=1):
                 Res = gr.Textbox(label="Summary and Result: ")
-        with gr.Column(scale=0.7, min_width="500px", max_width="500px", min_height="500px", max_height="500px"):
+        with gr.Column(scale=1):
             solving_step = gr.Textbox(label="Solving Step: ", lines=5)
 
 
-    img = gr.outputs.Image(type='numpy')
-    df = gr.outputs.Dataframe(type='pandas')
+    img = gr.Image(type='numpy')
+    df = gr.Dataframe(type='pandas')
     with gr.Row():
         gr.Markdown(
             """
@@ -215,6 +215,9 @@ with gr.Blocks() as demo:
 
 
 demo.queue()
-demo.launch()
+
+if __name__ == "__main__":
+    # Only launch when run as main script
+    demo.launch()
 
 

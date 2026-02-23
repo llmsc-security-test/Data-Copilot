@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Create non-root user
 RUN groupadd -g 1000 appuser && useradd -u 1000 -g appuser -m appuser
 
+# Upgrade pip and install setuptools first
+RUN pip install --no-cache-dir --upgrade pip setuptools
+
 # Copy requirements first for better caching
 COPY requirements.txt .
 
@@ -23,6 +26,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
 COPY *.py ./
+
+# Copy entrypoint script
+COPY entry_point.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Change ownership to non-root user
 RUN chown -R appuser:appuser /app
@@ -37,5 +44,5 @@ EXPOSE 7860
 ENV GRADIO_SERVER_NAME="0.0.0.0"
 ENV GRADIO_SERVER_PORT=7860
 
-# Run the Gradio app
-CMD ["python", "app.py"]
+# Run the Gradio app via entrypoint
+ENTRYPOINT ["/entrypoint.sh"]
